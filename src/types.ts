@@ -27,6 +27,11 @@ export type OnEventWithOptions<O> = {
     options?: O,
   ): OnEventReturn
   (
+    eventType: "secondaryButtonClicked",
+    eventHandler: SecondaryButtonClickedCallback,
+    options?: O,
+  ): OnEventReturn
+  (
     eventType: "backButtonClicked",
     eventHandler: BackButtonClickedCallback,
     options?: O,

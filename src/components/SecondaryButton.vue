@@ -1,11 +1,12 @@
 <script lang="ts" setup>
 import { onMounted, onUnmounted, watch } from "vue"
-import { useWebAppMainButton } from ".."
+import { useWebAppSecondaryButton } from ".."
 
 const props = defineProps({
   text: { type: String },
   color: { type: String },
   textColor: { type: String },
+  position: { type: String },
   visible: { type: Boolean, default: true },
   disabled: { type: Boolean, default: false },
   progress: { type: Boolean, default: false },
@@ -16,17 +17,17 @@ const emit = defineEmits<{
 }>()
 
 const {
-  setMainButtonParams,
-  onMainButtonClicked,
-  hideMainButton,
-  showMainButtonProgress,
-  hideMainButtonProgress,
-} = useWebAppMainButton()
+  setSecondaryButtonParams,
+  onSecondaryButtonClicked,
+  hideSecondaryButton,
+  showSecondaryButtonProgress,
+  hideSecondaryButtonProgress,
+} = useWebAppSecondaryButton()
 
 watch(
   () => props.text,
   text => {
-    setMainButtonParams({
+    setSecondaryButtonParams({
       text,
     })
   },
@@ -35,7 +36,7 @@ watch(
 watch(
   () => props.color,
   color => {
-    setMainButtonParams({
+    setSecondaryButtonParams({
       color,
     })
   },
@@ -44,8 +45,17 @@ watch(
 watch(
   () => props.textColor,
   textColor => {
-    setMainButtonParams({
+    setSecondaryButtonParams({
       text_color: textColor,
+    })
+  },
+)
+
+watch(
+  () => props.position,
+  position => {
+    setSecondaryButtonParams({
+      position,
     })
   },
 )
@@ -53,7 +63,7 @@ watch(
 watch(
   () => props.visible,
   isVisible => {
-    setMainButtonParams({
+    setSecondaryButtonParams({
       is_visible: isVisible,
     })
   },
@@ -62,7 +72,7 @@ watch(
 watch(
   () => props.disabled,
   isDisabled => {
-    setMainButtonParams({
+    setSecondaryButtonParams({
       is_active: !isDisabled,
     })
   },
@@ -71,28 +81,29 @@ watch(
 watch(
   () => props.progress,
   inProgress => {
-    inProgress ? showMainButtonProgress() : hideMainButtonProgress()
+    inProgress ? showSecondaryButtonProgress() : hideSecondaryButtonProgress()
   },
 )
 
 watch(
   () => props.shining,
   isShining => {
-    setMainButtonParams({
+    setSecondaryButtonParams({
       is_shining: isShining,
     })
   },
 )
 
-onMainButtonClicked(() => emit("click"))
+onSecondaryButtonClicked(() => emit("click"))
 
 onMounted(() => {
-  props.progress ? showMainButtonProgress() : hideMainButtonProgress()
+  props.progress ? showSecondaryButtonProgress() : hideSecondaryButtonProgress()
 
-  setMainButtonParams({
+  setSecondaryButtonParams({
     text: props.text,
     text_color: props.textColor,
     color: props.color,
+    position: props.position,
     is_active: !props.disabled,
     is_visible: props.visible,
     has_shine_effect: props.shining,
@@ -100,8 +111,8 @@ onMounted(() => {
 })
 
 onUnmounted(() => {
-  hideMainButtonProgress()
-  hideMainButton()
+  hideSecondaryButtonProgress()
+  hideSecondaryButton()
 })
 </script>
 

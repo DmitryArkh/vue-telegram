@@ -3,6 +3,7 @@ import {
   useWebApp,
   useWebAppHapticFeedback,
   useWebAppMainButton,
+  useWebAppSecondaryButton,
   useWebAppNavigation,
   useWebAppPopup,
   useWebAppQrScanner,
@@ -26,9 +27,25 @@ const {
   isMainButtonActive,
   isMainButtonVisible,
   isMainButtonProgressVisible,
+  hasMainButtonShineEffect,
   setMainButtonParams,
 } = useWebAppMainButton()
-const { colorScheme, themeParams, headerColor, backgroundColor } = useWebAppTheme()
+const {
+  showSecondaryButton,
+  hideSecondaryButton,
+  showSecondaryButtonProgress,
+  hideSecondaryButtonProgress,
+  secondaryButtonText,
+  secondaryButtonColor,
+  secondaryButtonTextColor,
+  secondaryButtonPosition,
+  isSecondaryButtonActive,
+  isSecondaryButtonVisible,
+  isSecondaryButtonProgressVisible,
+  hasSecondaryButtonShineEffect,
+  setSecondaryButtonParams,
+} = useWebAppSecondaryButton()
+const { colorScheme, themeParams, headerColor, backgroundColor, bottomBarColor } = useWebAppTheme()
 const { impactOccurred, notificationOccurred, selectionChanged } = useWebAppHapticFeedback()
 const { showScanQrPopup } = useWebAppQrScanner()
 const {
@@ -56,6 +73,36 @@ function toggleMainButtonProgress() {
     : showMainButtonProgress(true)
 }
 
+function toggleMainButtonShining() {
+  hasMainButtonShineEffect.value = !hasMainButtonShineEffect.value
+}
+
+function toggleSecondaryButton() {
+  isSecondaryButtonVisible.value
+    ? hideSecondaryButton()
+    : showSecondaryButton()
+}
+
+function toggleSecondaryButtonProgress() {
+  isSecondaryButtonProgressVisible.value
+    ? hideSecondaryButtonProgress()
+    : showSecondaryButtonProgress(true)
+}
+
+function toggleSecondaryButtonShining() {
+  hasSecondaryButtonShineEffect.value = !hasSecondaryButtonShineEffect.value
+}
+
+function changeSecondaryButtonPosition() {
+  const positions = {
+    left: 'right',
+    right: 'top',
+    top: 'bottom',
+    bottom: 'left'
+  };
+  setSecondaryButtonParams({ position: positions[secondaryButtonPosition.value] });
+}
+
 function initBiometricManager() {
   initBiometric(() => console.log('init: isAccessGranted'))
 }
@@ -78,6 +125,7 @@ function openSettingsBiometricManager() {
 <template>
   <section>
     <tg-main-button disabled />
+    <tg-secondary-button disabled />
     <button @click.prevent="sendData('Hello, World!')">
       Send «Hello, World!»
     </button>
@@ -104,12 +152,18 @@ function openSettingsBiometricManager() {
       <p>
         mainButtonTextColor: {{ mainButtonTextColor }}
       </p>
+      <p>
+        hasMainButtonShineEffect: {{ hasMainButtonShineEffect }}
+      </p>
 
       <button @click.prevent="toggleMainButton">
         Toggle Main Button
       </button>
       <button @click.prevent="toggleMainButtonProgress">
         Toggle Main Button Progress
+      </button>
+      <button @click.prevent="toggleMainButtonShining">
+        Toggle Main Button Shining
       </button>
       <button
         @click.prevent="setMainButtonParams({
@@ -119,6 +173,55 @@ function openSettingsBiometricManager() {
         })"
       >
         Update Main Button
+      </button>
+    </div>
+    <div>
+      <h4>Secondary Button:</h4>
+      <p>
+        isSecondaryButtonActive: {{ isSecondaryButtonActive }}
+      </p>
+      <p>
+        isSecondaryButtonVisible: {{ isSecondaryButtonVisible }}
+      </p>
+      <p>
+        isSecondaryButtonProgressVisible: {{ isSecondaryButtonProgressVisible }}
+      </p>
+      <p>
+        secondaryButtonText: {{ secondaryButtonText }}
+      </p>
+      <p>
+        secondaryButtonColor: {{ secondaryButtonColor }}
+      </p>
+      <p>
+        secondaryButtonTextColor: {{ secondaryButtonTextColor }}
+      </p>
+      <p>
+        secondaryButtonPosition: {{ secondaryButtonPosition }}
+      </p>
+      <p>
+        hasSecondaryButtonShineEffect: {{ hasSecondaryButtonShineEffect }}
+      </p>
+
+      <button @click.prevent="toggleSecondaryButton">
+        Toggle Secondary Button
+      </button>
+      <button @click.prevent="toggleSecondaryButtonProgress">
+        Toggle Secondary Button Progress
+      </button>
+      <button @click.prevent="toggleSecondaryButtonShining">
+        Toggle Secondary Button Shining
+      </button>
+      <button @click.prevent="changeSecondaryButtonPosition">
+        Change Secondary Button Position
+      </button>
+      <button
+        @click.prevent="setSecondaryButtonParams({
+          text: 'DONE',
+          color: '#e6e6e6',
+          text_color: '#000',
+        })"
+      >
+        Update Secondary Button
       </button>
     </div>
 
@@ -300,6 +403,17 @@ function openSettingsBiometricManager() {
           </option>
           <option :selected="backgroundColor === themeParams.secondary_bg_color ">
             secondary_bg_color ({{ backgroundColor }})
+          </option>
+        </select>
+      </div>
+      <div class="sect_row">
+        Bottom bar:
+        <select disabled>
+          <option :selected="bottomBarColor === themeParams.bg_color ">
+            bg_color ({{ bottomBarColor }})
+          </option>
+          <option :selected="bottomBarColor === themeParams.secondary_bg_color ">
+            secondary_bg_color ({{ bottomBarColor }})
           </option>
         </select>
       </div>

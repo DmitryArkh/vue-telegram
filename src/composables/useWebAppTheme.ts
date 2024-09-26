@@ -6,6 +6,7 @@ const colorScheme = ref(Telegram.WebApp.colorScheme)
 const themeParams = ref(Telegram.WebApp.themeParams)
 const headerColor = ref(Telegram.WebApp.headerColor)
 const backgroundColor = ref(Telegram.WebApp.backgroundColor)
+const bottomBarColor = ref(Telegram.WebApp.bottomBarColor)
 
 function updateState() {
   colorScheme.value = Telegram.WebApp.colorScheme
@@ -14,6 +15,7 @@ function updateState() {
   }
   headerColor.value = Telegram.WebApp.headerColor
   backgroundColor.value = Telegram.WebApp.backgroundColor
+  bottomBarColor.value = Telegram.WebApp.bottomBarColor
 }
 
 function setHeaderColor(
@@ -27,6 +29,13 @@ function setBackgroundColor(
   ...params: Parameters<typeof Telegram.WebApp.setBackgroundColor>
 ) {
   Telegram.WebApp.setBackgroundColor(...params)
+  updateState()
+}
+
+function setBottomBarColor(
+  ...params: Parameters<typeof Telegram.WebApp.setBottomBarColor>
+) {
+  Telegram.WebApp.setBottomBarColor(...params)
   updateState()
 }
 
@@ -57,8 +66,17 @@ export function useWebAppTheme() {
         setBackgroundColor(newValue)
       },
     }),
+    bottomBarColor: computed({
+      get() {
+        return bottomBarColor.value
+      },
+      set(newValue) {
+        setBottomBarColor(newValue)
+      },
+    }),
     setHeaderColor,
     setBackgroundColor,
+    setBottomBarColor,
     onThemeChanged,
   }
 }

@@ -10,6 +10,7 @@ const isMainButtonActive = ref(Telegram.WebApp.MainButton.isActive)
 const isMainButtonProgressVisible = ref(
   Telegram.WebApp.MainButton.isProgressVisible,
 )
+const hasMainButtonShineEffect = ref(Telegram.WebApp.MainButton.hasShineEffect)
 
 function updateState() {
   mainButtonText.value = Telegram.WebApp.MainButton.text
@@ -19,6 +20,7 @@ function updateState() {
   isMainButtonActive.value = Telegram.WebApp.MainButton.isActive
   isMainButtonProgressVisible.value =
     Telegram.WebApp.MainButton.isProgressVisible
+  hasMainButtonShineEffect.value = Telegram.WebApp.MainButton.hasShineEffect
 }
 
 function setMainButtonText(
@@ -136,6 +138,16 @@ export function useWebAppMainButton() {
       },
       set(isProgressVisible) {
         isProgressVisible ? showMainButtonProgress() : hideMainButtonProgress()
+      },
+    }),
+    hasMainButtonShineEffect: computed({
+      get() {
+        return hasMainButtonShineEffect.value
+      },
+      set(hasShineEffect) {
+        setMainButtonParams({
+          has_shine_effect: hasShineEffect,
+        })
       },
     }),
     setMainButtonText,

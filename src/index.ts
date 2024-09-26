@@ -7,6 +7,7 @@ import ClosingConfirmation from "./components/ClosingConfirmation.vue"
 import Confirm from "./components/Confirm.vue"
 import ExpandedViewport from "./components/ExpandedViewport.vue"
 import MainButton from "./components/MainButton.vue"
+import SecondaryButton from "./components/SecondaryButton.vue"
 import Popup from "./components/Popup.vue"
 import ScanQr from "./components/ScanQr.vue"
 import SettingsButton from "./components/SettingsButton.vue"
@@ -23,6 +24,7 @@ export {
   Confirm,
   ExpandedViewport,
   MainButton,
+  SecondaryButton,
   Popup,
   ScanQr,
   SettingsButton,
@@ -42,6 +44,7 @@ export { useWebAppClosingConfirmation } from "./composables/useWebAppClosingConf
 export { useWebAppCloudStorage } from "./composables/useWebAppCloudStorage"
 export { useWebAppHapticFeedback } from "./composables/useWebAppHapticFeedback"
 export { useWebAppMainButton } from "./composables/useWebAppMainButton"
+export { useWebAppSecondaryButton } from "./composables/useWebAppSecondaryButton"
 export { useWebAppNavigation } from "./composables/useWebAppNavigation"
 export { useWebAppPopup } from "./composables/useWebAppPopup"
 export { useWebAppQrScanner } from "./composables/useWebAppQrScanner"
@@ -61,6 +64,7 @@ const plugin = {
     Vue.component("TgConfirm", Confirm)
     Vue.component("TgExpandedViewport", ExpandedViewport)
     Vue.component("TgMainButton", MainButton)
+    Vue.component("TgSecondaryButton", SecondaryButton)
     Vue.component("TgPopup", Popup)
     Vue.component("TgScanQr", ScanQr)
     Vue.component("TgSettingsButton", SettingsButton)
@@ -80,6 +84,7 @@ declare module "@vue/runtime-core" {
     TgConfirm: typeof Confirm
     TgExpandedViewport: typeof ExpandedViewport
     TgMainButton: typeof MainButton
+    TgSecondaryButton: typeof SecondaryButton
     TgPopup: typeof Popup
     TgScanQr: typeof ScanQr
     TgSettingsButton: typeof SettingsButton
