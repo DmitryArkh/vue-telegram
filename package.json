@@ -1,16 +1,16 @@
 {
   "name": "vue-tg",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "description": "Telegram integration for Vue",
   "author": "deptyped <deptyped@gmail.com>",
   "license": "MIT",
   "sideEffects": false,
-  "homepage": "https://github.com/deptyped/vue-telegram#readme",
+  "homepage": "https://github.com/DmitryArkh/vue-telegram",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deptyped/vue-telegram.git"
+    "url": "git+https://github.com/DmitryArkh/vue-telegram.git"
   },
-  "bugs": "https://github.com/deptyped/vue-telegram/issues",
+  "bugs": "https://github.com/DmitryArkh/vue-telegram/issues",
   "keywords": [
     "vue3",
     "composable",
