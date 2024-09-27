@@ -1,8 +1,8 @@
 {
-  "name": "vue-tg",
+  "name": "@dmitryarkh/vue-tg",
   "version": "0.9.0",
   "description": "Telegram integration for Vue",
-  "author": "deptyped <deptyped@gmail.com>",
+  "author": "DmitryArkh <contact@dmitryarkh.me>",
   "license": "MIT",
   "sideEffects": false,
   "homepage": "https://github.com/DmitryArkh/vue-telegram",
